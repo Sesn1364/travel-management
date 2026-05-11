@@ -1,42 +1,69 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Registration = () => {
-    return (
-        <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4">
 
-            {/* Background Blur */}
-            <div className="absolute w-72 h-72 bg-cyan-500/30 rounded-full blur-3xl top-10 left-10"></div>
-            <div className="absolute w-72 h-72 bg-purple-500/30 rounded-full blur-3xl bottom-10 right-10"></div>
+    const [userValue , setUserValue] = useState("")
+    const [emlValue , setEmlValue] = useState("")
+    const [passValue , setPassValue] = useState("")
+    const [confPassValue , setConfPassValue] = useState("")
 
-            {/* Card */}
-            <div className="relative w-full max-w-md">
+    const usernameValue = (e) => {
+        setUserValue(e.target.value)
+    }
+    const emailValue = (e) => {
+        setEmlValue(e.target.value)
+    }
+    const passwordValue = (e) => {
+        setPassValue(e.target.value)
+    }
+    const confirmPasswordValue = (e) => {
+        setConfPassValue(e.target.value)
+    }
 
-                <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
+    const submitForRegistration = () => {
+        axios.post("http://localhost:3000/api/auth/register" , {
+            username : userValue ,
+            email : emlValue , 
+            password : passValue ,
+            confirmPassword : confPassValue
+        })
+    }
 
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-4xl font-bold text-white mb-2">
-                            Create Account
-                        </h1>
+  return (
+    <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4">
+      {/* Background Blur */}
+      <div className="absolute w-72 h-72 bg-cyan-500/30 rounded-full blur-3xl top-10 left-10"></div>
+      <div className="absolute w-72 h-72 bg-purple-500/30 rounded-full blur-3xl bottom-10 right-10"></div>
 
-                        <p className="text-gray-300 text-sm">
-                            Join us and start your journey
-                        </p>
-                    </div>
+      {/* Card */}
+      <div className="relative w-full max-w-md">
+        <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Create Account
+            </h1>
 
-                    {/* Form */}
-                    <form className="space-y-5">
+            <p className="text-gray-300 text-sm">
+              Join us and start your journey
+            </p>
+          </div>
 
-                        {/* Username */}
-                        <div>
-                            <label className="block text-sm text-gray-200 mb-2">
-                                Username
-                            </label>
+          {/* Form */}
+          <form className="space-y-5">
+            {/* Username */}
+            <div>
+              <label className="block text-sm text-gray-200 mb-2">
+                Username
+              </label>
 
-                            <input
-                                type="text"
-                                placeholder="Choose a username"
-                                className="
+              <input
+                type="text"
+                onChange={usernameValue}
+                placeholder="Choose a username"
+                className="
                                     w-full
                                     bg-white/10
                                     border
@@ -51,19 +78,18 @@ const Registration = () => {
                                     focus:ring-cyan-400
                                     transition-all
                                 "
-                            />
-                        </div>
+              />
+            </div>
 
-                        {/* Email */}
-                        <div>
-                            <label className="block text-sm text-gray-200 mb-2">
-                                Email
-                            </label>
+            {/* Email */}
+            <div>
+              <label className="block text-sm text-gray-200 mb-2">Email</label>
 
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="
+              <input
+                type="email"
+                onChange={emailValue}
+                placeholder="Enter your email"
+                className="
                                     w-full
                                     bg-white/10
                                     border
@@ -78,19 +104,20 @@ const Registration = () => {
                                     focus:ring-cyan-400
                                     transition-all
                                 "
-                            />
-                        </div>
+              />
+            </div>
 
-                        {/* Password */}
-                        <div>
-                            <label className="block text-sm text-gray-200 mb-2">
-                                Password
-                            </label>
+            {/* Password */}
+            <div>
+              <label className="block text-sm text-gray-200 mb-2">
+                Password
+              </label>
 
-                            <input
-                                type="password"
-                                placeholder="Create a password"
-                                className="
+              <input
+                type="password"
+                onChange={passwordValue}
+                placeholder="Create a password"
+                className="
                                     w-full
                                     bg-white/10
                                     border
@@ -105,19 +132,20 @@ const Registration = () => {
                                     focus:ring-purple-400
                                     transition-all
                                 "
-                            />
-                        </div>
+              />
+            </div>
 
-                        {/* Confirm Password */}
-                        <div>
-                            <label className="block text-sm text-gray-200 mb-2">
-                                Confirm Password
-                            </label>
+            {/* Confirm Password */}
+            <div>
+              <label className="block text-sm text-gray-200 mb-2">
+                Confirm Password
+              </label>
 
-                            <input
-                                type="password"
-                                placeholder="Repeat your password"
-                                className="
+              <input
+                type="password"
+                onChange={confirmPasswordValue}
+                placeholder="Repeat your password"
+                className="
                                     w-full
                                     bg-white/10
                                     border
@@ -132,13 +160,14 @@ const Registration = () => {
                                     focus:ring-purple-400
                                     transition-all
                                 "
-                            />
-                        </div>
+              />
+            </div>
 
-                        {/* Button */}
-                        <button
-                            type="submit"
-                            className="
+            {/* Button */}
+            <button
+              type="button"
+              onClick={submitForRegistration}
+              className="
                                 w-full
                                 py-3
                                 rounded-xl
@@ -154,34 +183,31 @@ const Registration = () => {
                                 shadow-lg
                                 shadow-cyan-500/20
                             "
-                        >
-                            Create Account
-                        </button>
+            >
+              Create Account
+            </button>
+          </form>
 
-                    </form>
-
-                    {/* Footer */}
-                    <p className="text-center text-sm text-gray-300 mt-6">
-                        Already have an account?
-
-                        <Link
-                            to="/"
-                            className="
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-300 mt-6">
+            Already have an account?
+            <Link
+              to="/"
+              className="
                                 text-cyan-400
                                 hover:text-cyan-300
                                 hover:underline
                                 ml-1
                                 transition-colors
                             "
-                        >
-                            Login
-                        </Link>
-                    </p>
-
-                </div>
-            </div>
+            >
+              Login
+            </Link>
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Registration;
