@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {
   sendUserInfoToDb,
   userRegistration,
+  resetForm,
 } from "../../redux/slices/authSlice";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
@@ -30,6 +31,7 @@ const Registration = () => {
 
   const submitForRegistration = () => {
     dispatch(sendUserInfoToDb(authData));
+    dispatch(resetForm());
   };
 
   return (
@@ -53,7 +55,7 @@ const Registration = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" autoComplete="off">
             {/* Username */}
             <div>
               <label className="block text-sm text-gray-200 mb-2">
@@ -63,6 +65,7 @@ const Registration = () => {
               <input
                 type="text"
                 name="username"
+                value={authData.username}
                 onChange={inputHandler}
                 placeholder="Choose a username"
                 className="
@@ -90,6 +93,7 @@ const Registration = () => {
               <input
                 type="email"
                 name="email"
+                value={authData.email}
                 onChange={inputHandler}
                 placeholder="Enter your email"
                 className="
@@ -119,6 +123,7 @@ const Registration = () => {
               <input
                 type="password"
                 name="password"
+                value={authData.password}
                 onChange={inputHandler}
                 placeholder="Create a password"
                 className="
@@ -148,6 +153,7 @@ const Registration = () => {
               <input
                 type="password"
                 name="confirmPassword"
+                value={authData.confirmPassword}
                 onChange={inputHandler}
                 placeholder="Repeat your password"
                 className="

@@ -46,6 +46,10 @@ const authSlice = createSlice({
         [name]: value,
       };
     },
+
+    resetForm: () => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -58,5 +62,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { userRegistration } = authSlice.actions;
+export const { userRegistration , resetForm } = authSlice.actions;
 export default authSlice.reducer;
