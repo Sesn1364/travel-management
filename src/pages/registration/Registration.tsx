@@ -1,35 +1,36 @@
-import axios from "axios";
-import { useState } from "react";
+// Registration Page
+
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  sendUserInfoToDb,
+  userRegistration,
+} from "../../redux/slices/authSlice";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Registration = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const authData = useSelector((state: RootState) => state.auth);
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      userRegistration({
+        name: e.target.name,
+        value: e.target.value,
+      }),
+    );
+  };
 
-    const [userValue , setUserValue] = useState("")
-    const [emlValue , setEmlValue] = useState("")
-    const [passValue , setPassValue] = useState("")
-    const [confPassValue , setConfPassValue] = useState("")
+  useEffect(() => {
+    if (authData.errorMassage) {
+      toast.error(authData.errorMassage);
+    }
+  }, [authData.errorMassage]);
 
-    const usernameValue = (e) => {
-        setUserValue(e.target.value)
-    }
-    const emailValue = (e) => {
-        setEmlValue(e.target.value)
-    }
-    const passwordValue = (e) => {
-        setPassValue(e.target.value)
-    }
-    const confirmPasswordValue = (e) => {
-        setConfPassValue(e.target.value)
-    }
-
-    const submitForRegistration = () => {
-        axios.post("http://localhost:3000/api/auth/register" , {
-            username : userValue ,
-            email : emlValue , 
-            password : passValue ,
-            confirmPassword : confPassValue
-        })
-    }
+  const submitForRegistration = () => {
+    dispatch(sendUserInfoToDb(authData));
+  };
 
   return (
     <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4">
@@ -61,7 +62,8 @@ const Registration = () => {
 
               <input
                 type="text"
-                onChange={usernameValue}
+                name="username"
+                onChange={inputHandler}
                 placeholder="Choose a username"
                 className="
                                     w-full
@@ -87,7 +89,8 @@ const Registration = () => {
 
               <input
                 type="email"
-                onChange={emailValue}
+                name="email"
+                onChange={inputHandler}
                 placeholder="Enter your email"
                 className="
                                     w-full
@@ -115,7 +118,8 @@ const Registration = () => {
 
               <input
                 type="password"
-                onChange={passwordValue}
+                name="password"
+                onChange={inputHandler}
                 placeholder="Create a password"
                 className="
                                     w-full
@@ -143,7 +147,8 @@ const Registration = () => {
 
               <input
                 type="password"
-                onChange={confirmPasswordValue}
+                name="confirmPassword"
+                onChange={inputHandler}
                 placeholder="Repeat your password"
                 className="
                                     w-full
