@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   sendUserInfoToDb,
-  userRegistration,
+  userInformation,
   resetForm,
 } from "../../redux/slices/authSlice";
 import type { AppDispatch, RootState } from "../../redux/store";
@@ -16,7 +16,7 @@ const Registration = () => {
   const authData = useSelector((state: RootState) => state.auth);
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
-      userRegistration({
+      userInformation({
         name: e.target.name,
         value: e.target.value,
       }),
@@ -30,7 +30,14 @@ const Registration = () => {
   }, [authData.errorMassage]);
 
   const submitForRegistration = () => {
-    dispatch(sendUserInfoToDb(authData));
+    dispatch(
+      sendUserInfoToDb({
+        username: authData.username,
+        email: authData.email,
+        password: authData.password,
+        confirmPassword: authData.confirmPassword,
+      }),
+    );
     dispatch(resetForm());
   };
 

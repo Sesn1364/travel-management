@@ -3,5 +3,15 @@ export interface AuthStateType {
   email: string;
   password: string;
   confirmPassword: string;
-  errorMassage: string | null;
+  errorMassage: string;
 }
+export interface RegisterUserType {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+export type LoginUserType = {
+  username: string;
+  password: string;
+};

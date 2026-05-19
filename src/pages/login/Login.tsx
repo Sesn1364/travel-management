@@ -1,6 +1,49 @@
+// Login Page
+
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  sendLoginInfoToDb,
+  userInformation,
+} from "../../redux/slices/authSlice";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const authData = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      userInformation({
+        name: e.target.name,
+        value: e.target.value,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    if (authData.errorMassage) {
+      toast.error(authData.errorMassage);
+    }
+  }, [authData.errorMassage]);
+
+  const submitForLogin = async () => {
+    const resultAction = await dispatch(
+      sendLoginInfoToDb({
+        username: authData.username,
+        password: authData.password,
+      }),
+    );
+
+    if (sendLoginInfoToDb.fulfilled.match(resultAction)) {
+      navigate("/create-trip");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4">
       {/* Background Blur */}
@@ -29,6 +72,8 @@ const Login = () => {
 
               <input
                 type="text"
+                name="username"
+                onChange={inputHandler}
                 placeholder="Enter your username"
                 className="
                                     w-full
@@ -56,6 +101,8 @@ const Login = () => {
 
               <input
                 type="password"
+                name="password"
+                onChange={inputHandler}
                 placeholder="Enter your password"
                 className="
                                     w-full
@@ -77,7 +124,8 @@ const Login = () => {
 
             {/* Button */}
             <button
-              type="submit"
+              type="button"
+              onClick={submitForLogin}
               className="
                                 w-full
                                 py-3
