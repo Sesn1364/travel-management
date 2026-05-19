@@ -1,10 +1,7 @@
 // Login Page
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  sendLoginInfoToDb,
-  userInformation,
-} from "../../redux/auth/authSlice";
+import { sendLoginInfoToDb, userInformation } from "../../redux/auth/authSlice";
 import type { AppDispatch, RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -44,7 +41,12 @@ const Login = () => {
     );
 
     if (sendLoginInfoToDb.fulfilled.match(resultAction)) {
-      dispatch(setCurrentUser(resultAction.payload.data));
+      const user = resultAction.payload.data;
+
+      dispatch(setCurrentUser(user));
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       navigate("/create-trip");
     }
   };
