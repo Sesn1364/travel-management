@@ -10,6 +10,7 @@ import {
 import type { AppDispatch, RootState } from "../../redux/store";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import Input from "../../components/common/Input";
 
 const Registration = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -69,27 +70,12 @@ const Registration = () => {
                 Username
               </label>
 
-              <input
+              <Input
                 type="text"
                 name="username"
                 value={authData.username}
                 onChange={inputHandler}
                 placeholder="Choose a username"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-cyan-400
-                                    transition-all
-                                "
               />
             </div>
 
@@ -97,27 +83,12 @@ const Registration = () => {
             <div>
               <label className="block text-sm text-gray-200 mb-2">Email</label>
 
-              <input
+              <Input
                 type="email"
                 name="email"
                 value={authData.email}
                 onChange={inputHandler}
                 placeholder="Enter your email"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-cyan-400
-                                    transition-all
-                                "
               />
             </div>
 
@@ -127,27 +98,13 @@ const Registration = () => {
                 Password
               </label>
 
-              <input
+              <Input
                 type="password"
                 name="password"
                 value={authData.password}
                 onChange={inputHandler}
                 placeholder="Create a password"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-purple-400
-                                    transition-all
-                                "
+                className="focus:ring-purple-400"
               />
             </div>
 
@@ -157,28 +114,15 @@ const Registration = () => {
                 Confirm Password
               </label>
 
-              <input
+              <Input
                 type="password"
                 name="confirmPassword"
                 value={authData.confirmPassword}
                 onChange={inputHandler}
                 placeholder="Repeat your password"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-purple-400
-                                    transition-all
-                                "
+                className="focus:ring-purple-400"
               />
+             
             </div>
 
             {/* Button */}

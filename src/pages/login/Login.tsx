@@ -10,6 +10,7 @@ import type { AppDispatch, RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import Input from "../../components/common/Input";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -70,26 +71,11 @@ const Login = () => {
                 Username
               </label>
 
-              <input
+              <Input
                 type="text"
                 name="username"
-                onChange={inputHandler}
                 placeholder="Enter your username"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-cyan-400
-                                    transition-all
-                                "
+                onChange={inputHandler}
               />
             </div>
 
@@ -99,26 +85,12 @@ const Login = () => {
                 Password
               </label>
 
-              <input
+              <Input
                 type="password"
                 name="password"
-                onChange={inputHandler}
                 placeholder="Enter your password"
-                className="
-                                    w-full
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    rounded-xl
-                                    px-4
-                                    py-3
-                                    text-white
-                                    placeholder-gray-400
-                                    outline-none
-                                    focus:ring-2
-                                    focus:ring-purple-400
-                                    transition-all
-                                "
+                onChange={inputHandler}
+                className="focus:ring-purple-400"
               />
             </div>
 
@@ -143,7 +115,7 @@ const Login = () => {
                                 shadow-cyan-500/20
                             "
             >
-              Sign In
+              Login
             </button>
           </form>
 
