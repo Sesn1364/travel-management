@@ -6,7 +6,7 @@ import type {
   AuthStateType,
   LoginUserType,
   RegisterUserType,
-} from "../types/authSlice";
+} from "./authTypes";
 
 const initialState: AuthStateType = {
   username: "",

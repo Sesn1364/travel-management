@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   sendLoginInfoToDb,
   userInformation,
-} from "../../redux/slices/authSlice";
-import type { AppDispatch, RootState } from "../../redux/store";
+} from "../../redux/auth/authSlice";
+import type { AppDispatch, RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import Input from "../../components/common/input/Input";
-import Button from "../../components/common/button/button";
+import Button from "../../components/common/button/Button";
 import AuthFooter from "../../components/common/auth-footer/AuthFooter";
 import AuthHeader from "../../components/common/auth-header/AuthHeader";
 
