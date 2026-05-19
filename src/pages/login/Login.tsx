@@ -1,7 +1,6 @@
 // Login Page
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   sendLoginInfoToDb,
   userInformation,
@@ -10,7 +9,10 @@ import type { AppDispatch, RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import Input from "../../components/common/Input";
+import Input from "../../components/common/input/Input";
+import Button from "../../components/common/button/button";
+import AuthFooter from "../../components/common/auth-footer/AuthFooter";
+import AuthHeader from "../../components/common/auth-header/AuthHeader";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,13 +57,10 @@ const Login = () => {
       <div className="relative w-full max-w-md">
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Welcome Back</h1>
-
-            <p className="text-gray-300 text-sm">
-              Login to continue your journey
-            </p>
-          </div>
+          <AuthHeader
+            title="Welcome Back"
+            description="Login to continue your journey"
+          />
 
           {/* Form */}
           <form className="space-y-5">
@@ -95,46 +94,17 @@ const Login = () => {
             </div>
 
             {/* Button */}
-            <button
-              type="button"
-              onClick={submitForLogin}
-              className="
-                                w-full
-                                py-3
-                                rounded-xl
-                                font-semibold
-                                text-white
-                                bg-gradient-to-r
-                                from-cyan-500
-                                to-purple-500
-                                hover:scale-[1.02]
-                                active:scale-[0.98]
-                                transition-all
-                                duration-300
-                                shadow-lg
-                                shadow-cyan-500/20
-                            "
-            >
+            <Button type="button" onClick={submitForLogin}>
               Login
-            </button>
+            </Button>
           </form>
 
           {/* Footer */}
-          <p className="text-center text-sm text-gray-300 mt-6">
-            Don’t have an account?
-            <Link
-              to="/registration"
-              className="
-      text-cyan-400
-      hover:text-cyan-300
-      hover:underline
-      ml-1
-      transition-colors
-    "
-            >
-              Register
-            </Link>
-          </p>
+          <AuthFooter
+            text="Don’t have an account?"
+            linkText="Register"
+            to="/registration"
+          />
         </div>
       </div>
     </div>
