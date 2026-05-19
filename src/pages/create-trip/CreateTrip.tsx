@@ -5,7 +5,6 @@ import type { RootState } from "../../app/store";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const CreateTrip = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -18,12 +17,6 @@ const CreateTrip = () => {
     localStorage.removeItem("user");
     navigate("/");
   };
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user]);
 
   return (
     <>
