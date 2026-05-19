@@ -1,11 +1,16 @@
+// CreateTrip Page
 
+import { useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
 
 const CreateTrip = () => {
-    return (
-        <>
-            <h1>Create Trip page</h1>
-        </>
-    )
-}
+  const user = useSelector((state: RootState) => state.user.currentUser);
 
-export default CreateTrip
+  return (
+    <>
+      <h1 className="text-black">Welcome {user?.username}</h1>
+    </>
+  );
+};
+
+export default CreateTrip;

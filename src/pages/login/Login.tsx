@@ -13,6 +13,7 @@ import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import AuthFooter from "../../components/common/auth-footer/AuthFooter";
 import AuthHeader from "../../components/common/auth-header/AuthHeader";
+import { setCurrentUser } from "../../redux/user/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,6 +44,7 @@ const Login = () => {
     );
 
     if (sendLoginInfoToDb.fulfilled.match(resultAction)) {
+      dispatch(setCurrentUser(resultAction.payload.data));
       navigate("/create-trip");
     }
   };
