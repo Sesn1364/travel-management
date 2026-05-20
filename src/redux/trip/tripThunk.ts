@@ -46,3 +46,24 @@ export const fetchUserTrips = createAsyncThunk(
     }
   },
 );
+
+export const deleteTrip = createAsyncThunk(
+  "trip/deleteTrip",
+
+  async (tripId: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/trips/${tripId}`,
+      );
+
+      return response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(
+          error.response?.data?.message || "Delete trip failed",
+        );
+      }
+      return rejectWithValue("Something went wrong");
+    }
+  },
+);

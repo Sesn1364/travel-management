@@ -8,6 +8,7 @@ import { useState } from "react";
 import { createTrip } from "../../redux/trip/tripThunk";
 import { fetchUserTrips } from "../../redux/trip/tripThunk";
 import { useEffect } from "react";
+import { deleteTrip } from "../../redux/trip/tripThunk";
 
 const CreateTrip = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -48,6 +49,10 @@ const CreateTrip = () => {
       dispatch(fetchUserTrips(user.id));
     }
   }, [dispatch, user]);
+
+  const handleDeleteTrip = async (tripId: string) => {
+    await dispatch(deleteTrip(tripId));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 via-white to-indigo-100 p-6">
@@ -193,7 +198,10 @@ const CreateTrip = () => {
                       {trip.tripName}
                     </h3>
 
-                    <button className="px-4 py-2 rounded-xl bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm">
+                    <button
+                      onClick={() => handleDeleteTrip(trip.id)}
+                      className="px-4 py-2 rounded-xl bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm"
+                    >
                       Delete
                     </button>
                   </div>

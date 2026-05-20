@@ -1,7 +1,7 @@
 // tripSlice
 
 import { createSlice } from "@reduxjs/toolkit";
-import { createTrip, fetchUserTrips } from "./tripThunk";
+import { createTrip, fetchUserTrips, deleteTrip } from "./tripThunk";
 import type { TripState } from "./tripTypes";
 
 const initialState: TripState = {
@@ -25,6 +25,12 @@ const tripSlice = createSlice({
 
     builder.addCase(fetchUserTrips.fulfilled, (state, action) => {
       state.trips = action.payload.data;
+    });
+
+    builder.addCase(deleteTrip.fulfilled, (state, action) => {
+      state.trips = state.trips.filter(
+        (trip) => trip.id !== action.payload.data.id,
+      );
     });
   },
 });
