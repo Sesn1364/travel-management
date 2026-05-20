@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { createTrip, fetchUserTrips } from "./tripThunk";
 import type { TripState } from "./tripTypes";
 
 const initialState: TripState = {
@@ -15,6 +15,15 @@ const tripSlice = createSlice({
     addTrip: (state, action) => {
       state.trips.push(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(createTrip.fulfilled, (state, action) => {
+      state.trips.push(action.payload.data);
+    });
+
+    builder.addCase(fetchUserTrips.fulfilled, (state, action) => {
+      state.trips = action.payload.data;
+    });
   },
 });
 

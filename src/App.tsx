@@ -8,13 +8,25 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./redux/user/userSlice";
 
 function App() {
+  const SESSION_DURATION = 6 * 60 * 60 * 1000;
   const dispatch = useDispatch();
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
 
     if (savedUser) {
-      dispatch(setCurrentUser(JSON.parse(savedUser)));
+      const parsedUser = JSON.parse(savedUser);
+
+      const currentTime = Date.now();
+
+      const isSessionExpired =
+        currentTime - parsedUser.loginTime > SESSION_DURATION;
+
+      if (isSessionExpired) {
+        localStorage.removeItem("user");
+      } else {
+        dispatch(setCurrentUser(parsedUser.user));
+      }
     }
   }, []);
 

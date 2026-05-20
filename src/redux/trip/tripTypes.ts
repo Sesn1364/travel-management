@@ -1,19 +1,8 @@
-export interface Trip {
-  id: string;
-
+export interface CreateTripType {
   tripName: string;
-
   country: string;
-
   state: string;
-
   city: string;
-
   startDate: string;
-
   userId: string;
-}
-
-export interface TripState {
-  trips: Trip[];
 }
