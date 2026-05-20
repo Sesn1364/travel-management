@@ -1,3 +1,5 @@
+// tripSlice
+
 import { createSlice } from "@reduxjs/toolkit";
 import { createTrip, fetchUserTrips } from "./tripThunk";
 import type { TripState } from "./tripTypes";

@@ -15,10 +15,13 @@ export const createTrip = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data?.message || "Create trip failed",
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(
+          error.response?.data?.message || "Create trip failed",
+        );
+      }
+      return rejectWithValue("Something went wrong");
     }
   },
 );
@@ -33,10 +36,13 @@ export const fetchUserTrips = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data?.message || "Fetch trips failed",
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(
+          error.response?.data?.message || "Fetch trips failed",
+        );
+      }
+      return rejectWithValue("Something went wrong");
     }
   },
 );
