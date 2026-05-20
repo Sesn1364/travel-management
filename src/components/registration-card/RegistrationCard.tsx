@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import AuthFooter from "../../components/common/auth-footer/AuthFooter";
-import AuthHeader from "../../components/common/auth-header/AuthHeader";
+import AuthHeader from "../common/header/Header";
 
 const RegistrationCard = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -51,6 +51,9 @@ const RegistrationCard = () => {
         <AuthHeader
           title="Create Account"
           description="Join us and start your journey"
+          containerClassName={`text-center mb-8`}
+          titleClassName={`text-4xl font-bold text-white mb-2`}
+          descriptionClassName={`text-gray-300 text-sm`}
         />
 
         {/* Form */}
@@ -65,6 +68,7 @@ const RegistrationCard = () => {
               value={authData.username}
               onChange={inputHandler}
               placeholder="Choose a username"
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
             />
           </div>
 
@@ -78,6 +82,7 @@ const RegistrationCard = () => {
               value={authData.email}
               onChange={inputHandler}
               placeholder="Enter your email"
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
             />
           </div>
 
@@ -91,7 +96,7 @@ const RegistrationCard = () => {
               value={authData.password}
               onChange={inputHandler}
               placeholder="Create a password"
-              className="focus:ring-purple-400"
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
             />
           </div>
 
@@ -107,7 +112,7 @@ const RegistrationCard = () => {
               value={authData.confirmPassword}
               onChange={inputHandler}
               placeholder="Repeat your password"
-              className="focus:ring-purple-400"
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
             />
           </div>
 

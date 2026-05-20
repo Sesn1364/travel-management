@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import Input from "../../components/common/input/Input";
 import Button from "../../components/common/button/Button";
 import AuthFooter from "../../components/common/auth-footer/AuthFooter";
-import AuthHeader from "../../components/common/auth-header/AuthHeader";
+import AuthHeader from "../common/header/Header";
 import { setCurrentUser } from "../../redux/user/userSlice";
 
 const LoginCard = () => {
@@ -62,6 +62,9 @@ const LoginCard = () => {
         <AuthHeader
           title="Welcome Back"
           description="Login to continue your journey"
+          containerClassName={`text-center mb-8`}
+          titleClassName={`text-4xl font-bold text-white mb-2`}
+          descriptionClassName={`text-gray-300 text-sm`}
         />
 
         {/* Form */}
@@ -75,6 +78,7 @@ const LoginCard = () => {
               name="username"
               placeholder="Enter your username"
               onChange={inputHandler}
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
             />
           </div>
 
@@ -87,7 +91,7 @@ const LoginCard = () => {
               name="password"
               placeholder="Enter your password"
               onChange={inputHandler}
-              className="focus:ring-purple-400"
+              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
             />
           </div>
 

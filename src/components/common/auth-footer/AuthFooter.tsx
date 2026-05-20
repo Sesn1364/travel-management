@@ -1,7 +1,7 @@
 // AuthFooter Component
 
 import { Link } from "react-router-dom";
-import type { AuthFooterProps } from "./authFooterType";
+import type { AuthFooterProps } from "./AuthFooterType";
 
 const AuthFooter = ({ text, linkText, to }: AuthFooterProps) => {
   return (
