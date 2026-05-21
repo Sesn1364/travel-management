@@ -1,11 +1,18 @@
 // tripSlice
 
 import { createSlice } from "@reduxjs/toolkit";
-import { createTrip, fetchUserTrips, deleteTrip ,updateTrip } from "./tripThunk";
+import {
+  createTrip,
+  fetchUserTrips,
+  deleteTrip,
+  updateTrip,
+} from "./tripThunk";
 import type { TripState } from "./tripTypes";
 
 const initialState: TripState = {
   trips: [],
+  isLoading: false,
+  error: null,
 };
 
 const tripSlice = createSlice({
@@ -19,8 +26,17 @@ const tripSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(createTrip.pending, (state) => {
+      state.isLoading = true;
+    });
+
     builder.addCase(createTrip.fulfilled, (state, action) => {
       state.trips.push(action.payload.data);
+      state.isLoading = false;
+    });
+    builder.addCase(createTrip.rejected, (state) => {
+      state.isLoading = false;
+      state.error = "Failed to create trip";
     });
 
     builder.addCase(fetchUserTrips.fulfilled, (state, action) => {

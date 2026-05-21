@@ -16,7 +16,7 @@ import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader"
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const trips = useSelector((state: RootState) => state.trip.trips);
+  const { trips, isLoading } = useSelector((state: RootState) => state.trip);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -146,6 +146,7 @@ const TripDashboard = () => {
           type="button"
           className="bg-sky-500 hover:bg-sky-600"
           onClick={handleCreateTrip}
+          isLoading={isLoading}
         >
           Create Trip
         </TripFormsButton>
