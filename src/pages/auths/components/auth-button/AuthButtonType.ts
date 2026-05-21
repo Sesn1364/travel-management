@@ -1,4 +1,4 @@
-export type ButtonProps = {
+export type AuthButtonProps = {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";

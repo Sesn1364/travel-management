@@ -67,3 +67,35 @@ export const deleteTrip = createAsyncThunk(
     }
   },
 );
+
+export const updateTrip = createAsyncThunk(
+  "trip/updateTrip",
+
+  async (
+    {
+      tripId,
+      tripData,
+    }: {
+      tripId: string;
+      tripData: {
+        tripName: string;
+        country: string;
+        state: string;
+        city: string;
+        startDate: string;
+      };
+    },
+    thunkAPI,
+  ) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/trips/${tripId}`,
+        tripData,
+      );
+
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Failed to update trip");
+    }
+  },
+);

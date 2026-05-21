@@ -1,6 +1,6 @@
 // Auth Header Component
 
-import type { HeaderProps } from "./HeaderType";
+import type { AuthHeaderProps } from "./AuthHeaderType";
 
 const AuthHeader = ({
   title,
@@ -8,7 +8,7 @@ const AuthHeader = ({
   containerClassName = "",
   titleClassName = "",
   descriptionClassName = "",
-}: HeaderProps) => {
+}: AuthHeaderProps) => {
   return (
     <div className={containerClassName}>
       <h1 className={titleClassName}>{title}</h1>

@@ -1,6 +1,6 @@
 // Registration Page
 
-import RegistrationCard from "../../components/registration-card/RegistrationCard";
+import RegistrationCard from "../components/registration-card/RegistrationCard";
 
 const Registration = () => {
   return (

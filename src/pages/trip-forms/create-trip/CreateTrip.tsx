@@ -1,14 +1,17 @@
 // CreateTrip Page
 
 import { useSelector, useDispatch } from "react-redux";
-import type { AppDispatch, RootState } from "../../app/store";
-import { clearUser } from "../../redux/user/userSlice";
+import type { AppDispatch, RootState } from "../../../app/store";
+import { clearUser } from "../../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createTrip } from "../../redux/trip/tripThunk";
-import { fetchUserTrips } from "../../redux/trip/tripThunk";
+import { createTrip } from "../../../redux/trip/tripThunk";
+import { fetchUserTrips } from "../../../redux/trip/tripThunk";
 import { useEffect } from "react";
-import { deleteTrip } from "../../redux/trip/tripThunk";
+import { deleteTrip } from "../../../redux/trip/tripThunk";
+import { Link } from "react-router-dom";
+import TripFormsInput from "../components/trip-forms-input/TripFormsInput";
+import TripFormsButton from "../components/trip-forms-button/TripFormsButton";
 
 const CreateTrip = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -88,85 +91,68 @@ const CreateTrip = () => {
           {/* Form Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Trip Name */}
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">
-                Trip Name
-              </label>
-              <input
-                type="text"
-                name="tripName"
-                value={tripData.tripName}
-                onChange={handleChange}
-                placeholder="Summer Vacation"
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
-              />
-            </div>
+            <TripFormsInput
+              lableText="Trip Name"
+              type="text"
+              name="tripName"
+              value={tripData.tripName}
+              onChange={handleChange}
+              placeholder="Summer Vacation"
+              className={` focus:ring-sky-400`}
+            />
 
             {/* Country */}
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">
-                Country
-              </label>
-              <input
-                type="text"
-                name="country"
-                value={tripData.country}
-                onChange={handleChange}
-                placeholder="Italy"
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
-              />
-            </div>
+            <TripFormsInput
+              lableText="Country"
+              type="text"
+              name="country"
+              value={tripData.country}
+              onChange={handleChange}
+              placeholder="Italy"
+              className={` focus:ring-sky-400`}
+            />
 
             {/* State */}
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">State</label>
-              <input
-                type="text"
-                name="state"
-                value={tripData.state}
-                onChange={handleChange}
-                placeholder="Tuscany"
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
-              />
-            </div>
+            <TripFormsInput
+              lableText="State"
+              type="text"
+              name="state"
+              value={tripData.state}
+              onChange={handleChange}
+              placeholder="Tuscany"
+              className={` focus:ring-sky-400`}
+            />
 
             {/* City */}
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">City</label>
-              <input
-                type="text"
-                placeholder="Florence"
-                name="city"
-                value={tripData.city}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
-              />
-            </div>
+            <TripFormsInput
+              lableText="City"
+              type="text"
+              name="city"
+              value={tripData.city}
+              onChange={handleChange}
+              placeholder="Florence"
+              className={` focus:ring-sky-400`}
+            />
 
             {/* Start Date */}
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">
-                Start Date
-              </label>
-              <input
-                type="date"
-                name="startDate"
-                value={tripData.startDate}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
-              />
-            </div>
+            <TripFormsInput
+              lableText="Start Date"
+              type="date"
+              name="startDate"
+              value={tripData.startDate}
+              onChange={handleChange}
+              className={` focus:ring-sky-400`}
+            />
           </div>
 
           {/* Button */}
-          <div className="mt-8">
-            <button
-              className="px-8 py-3 rounded-2xl bg-sky-500 text-white font-semibold hover:bg-sky-600 transition-all duration-300 shadow-lg"
-              onClick={handleCreateTrip}
-            >
-              Create Trip
-            </button>
-          </div>
+          <TripFormsButton
+            type="button"
+            className="bg-sky-500 hover:bg-sky-600" // کلاس‌ها را بهتر است بدون حلقه اضافه بنویسید یا مدیریت کنید
+            onClick={handleCreateTrip}
+          >
+            Create Trip
+          </TripFormsButton>
         </div>
 
         {/* Trips Section */}
@@ -193,17 +179,28 @@ const CreateTrip = () => {
                   key={trip.id}
                   className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-6"
                 >
-                  <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-start justify-between mb-4">
                     <h3 className="text-2xl font-bold text-gray-800">
                       {trip.tripName}
                     </h3>
 
-                    <button
-                      onClick={() => handleDeleteTrip(trip.id)}
-                      className="px-4 py-2 rounded-xl bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex items-center gap-3">
+                      {/* Edit Button */}
+                      <Link
+                        to={`/edit-trip/${trip.id}`}
+                        className="px-4 py-2 rounded-xl bg-sky-100 text-sky-600 hover:bg-sky-500 hover:text-white transition-all duration-300 shadow-sm"
+                      >
+                        Edit
+                      </Link>
+
+                      {/* Delete Button */}
+                      <button
+                        onClick={() => handleDeleteTrip(trip.id)}
+                        className="px-4 py-2 rounded-xl bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
 
                   <p className="text-gray-600">

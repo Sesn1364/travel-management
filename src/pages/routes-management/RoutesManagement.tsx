@@ -1,10 +1,11 @@
 // Routes Management
 
-import CreateTrip from "../create-trip/CreateTrip";
-import Login from "../login/Login";
-import Registration from "../registration/Registration";
+import CreateTrip from "../trip-forms/create-trip/CreateTrip";
+import Login from "../auths/login/Login";
+import Registration from "../auths/registration/Registration";
 import ProtectedRoute from "../../routes/ProtectedRoute";
 import GuestRoute from "../../routes/GuestRoute";
+import EditTrip from "../trip-forms/edit-trip/EditTrip";
 
 const RoutesManagement = [
   {
@@ -29,6 +30,14 @@ const RoutesManagement = [
     element: (
       <ProtectedRoute>
         <CreateTrip />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/edit-trip/:tripId",
+    element: (
+      <ProtectedRoute>
+        <EditTrip />
       </ProtectedRoute>
     ),
   },

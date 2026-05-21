@@ -1,6 +1,6 @@
-import type { ButtonProps } from "./buttonType";
+import type { AuthButtonProps } from "./AuthButtonType";
 
-const Button = ({ type, onClick, children, className = "" }: ButtonProps) => {
+const Button = ({ type, onClick, children, className = "" }: AuthButtonProps) => {
   return (
     <button
       type={type}

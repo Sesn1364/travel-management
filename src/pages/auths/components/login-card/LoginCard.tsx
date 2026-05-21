@@ -1,16 +1,16 @@
 // Login Card Component
 
 import { useDispatch, useSelector } from "react-redux";
-import { sendLoginInfoToDb, userInformation } from "../../redux/auth/authSlice";
-import type { AppDispatch, RootState } from "../../app/store";
+import { sendLoginInfoToDb, userInformation } from "../../../../redux/auth/authSlice";
+import type { AppDispatch, RootState } from "../../../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import Input from "../../components/common/input/Input";
-import Button from "../../components/common/button/Button";
-import AuthFooter from "../../components/common/auth-footer/AuthFooter";
-import AuthHeader from "../common/header/Header";
-import { setCurrentUser } from "../../redux/user/userSlice";
+import Input from "../auth-input/AuthInput";
+import Button from "../auth-button/AuthButton";
+import AuthFooter from "../auth-footer/AuthFooter";
+import AuthHeader from "../auth-header/AuthHeader";
+import { setCurrentUser } from "../../../../redux/user/userSlice";
 
 const LoginCard = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -78,7 +78,7 @@ const LoginCard = () => {
               name="username"
               placeholder="Enter your username"
               onChange={inputHandler}
-              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
+              className={` focus:ring-cyan-400`}
             />
           </div>
 
@@ -91,7 +91,7 @@ const LoginCard = () => {
               name="password"
               placeholder="Enter your password"
               onChange={inputHandler}
-              className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
+              className={` focus:ring-purple-400`}
             />
           </div>
 

@@ -5,14 +5,14 @@ import {
   sendUserInfoToDb,
   userInformation,
   resetForm,
-} from "../../redux/auth/authSlice";
-import type { AppDispatch, RootState } from "../../app/store";
+} from "../../../../redux/auth/authSlice";
+import type { AppDispatch, RootState } from "../../../../app/store";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import Input from "../../components/common/input/Input";
-import Button from "../../components/common/button/Button";
-import AuthFooter from "../../components/common/auth-footer/AuthFooter";
-import AuthHeader from "../common/header/Header";
+import Input from "../auth-input/AuthInput";
+import Button from "../auth-button/AuthButton";
+import AuthFooter from "../auth-footer/AuthFooter";
+import AuthHeader from "../auth-header/AuthHeader";
 
 const RegistrationCard = () => {
   const dispatch = useDispatch<AppDispatch>();
