@@ -2,8 +2,8 @@
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../../../app/store";
-import { useEffect, useState } from "react";
+import type { RootState, AppDispatch } from "../../../../app/store";
+import { useState } from "react";
 import { updateTrip } from "../../../../redux/trip/tripThunk";
 import TripFormsInput from "../../components/trip-forms-input/TripFormsInput";
 import TripFormsButton from "../../components/trip-forms-button/TripFormsButton";
@@ -13,7 +13,7 @@ const EditTripContainer = () => {
   const { tripId } = useParams();
   const trips = useSelector((state: RootState) => state.trip.trips);
   const selectedTrip = trips.find((trip) => trip.id === tripId);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const handleUpdateTrip = async () => {
@@ -29,23 +29,12 @@ const EditTripContainer = () => {
     navigate("/create-trip");
   };
   const [tripData, setTripData] = useState({
-    tripName: "",
-    country: "",
-    state: "",
-    city: "",
-    startDate: "",
+    tripName: selectedTrip?.tripName || "",
+    country: selectedTrip?.country || "",
+    state: selectedTrip?.state || "",
+    city: selectedTrip?.city || "",
+    startDate: selectedTrip?.startDate || "",
   });
-  useEffect(() => {
-    if (selectedTrip) {
-      setTripData({
-        tripName: selectedTrip.tripName,
-        country: selectedTrip.country,
-        state: selectedTrip.state,
-        city: selectedTrip.city,
-        startDate: selectedTrip.startDate,
-      });
-    }
-  }, [selectedTrip]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripData({
@@ -53,6 +42,12 @@ const EditTripContainer = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  if (!selectedTrip) {
+    return (
+      <div className="text-center text-gray-600 mt-10">Trip not found...</div>
+    );
+  }
 
   return (
     <>
