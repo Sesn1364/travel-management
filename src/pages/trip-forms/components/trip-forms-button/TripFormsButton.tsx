@@ -22,8 +22,3 @@ const TripFormsButton = ({
 };
 
 export default TripFormsButton
-
-// bg-sky-500
-// hover:bg-sky-600
-// bg-orange-500
-// hover:bg-orange-600
