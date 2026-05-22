@@ -94,8 +94,14 @@ export const updateTrip = createAsyncThunk(
       );
 
       return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue("Failed to update trip");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        return thunkAPI.rejectWithValue(
+          error.response?.data?.message || "Update trip failed",
+        );
+      }
+
+      return thunkAPI.rejectWithValue("Something went wrong");
     }
   },
 );
