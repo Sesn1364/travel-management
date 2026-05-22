@@ -1,7 +1,11 @@
 // Login Card Component
 
 import { useDispatch, useSelector } from "react-redux";
-import { sendLoginInfoToDb, userInformation } from "../../../../redux/auth/authSlice";
+import {
+  sendLoginInfoToDb,
+  userInformation,
+  clearError,
+} from "../../../../redux/auth/authSlice";
 import type { AppDispatch, RootState } from "../../../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -52,8 +56,10 @@ const LoginCard = () => {
   useEffect(() => {
     if (authData.errorMassage) {
       toast.error(authData.errorMassage);
+
+      dispatch(clearError());
     }
-  }, [authData.errorMassage]);
+  }, [authData.errorMassage, dispatch]);
 
   return (
     <>

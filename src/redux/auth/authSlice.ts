@@ -74,6 +74,10 @@ const authSlice = createSlice({
     resetForm: () => {
       return initialState;
     },
+
+    clearError: (state) => {
+      state.errorMassage = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,5 +96,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { userInformation, resetForm } = authSlice.actions;
+export const { userInformation, resetForm , clearError  } = authSlice.actions;
 export default authSlice.reducer;
