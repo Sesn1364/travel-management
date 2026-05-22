@@ -16,7 +16,9 @@ import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader"
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const { trips, isLoading } = useSelector((state: RootState) => state.trip);
+  const { trips, isCreating, isFetching, error } = useSelector(
+    (state: RootState) => state.trip,
+  );
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -146,7 +148,7 @@ const TripDashboard = () => {
           type="button"
           className="bg-sky-500 hover:bg-sky-600"
           onClick={handleCreateTrip}
-          isLoading={isLoading}
+          isLoading={isCreating}
         >
           Create Trip
         </TripFormsButton>
@@ -157,7 +159,45 @@ const TripDashboard = () => {
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">My Trips</h2>
 
         {/* Empty State */}
-        {trips.length === 0 ? (
+        {isFetching ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[1, 2].map((item) => (
+              <div
+                key={item}
+                className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-6 animate-pulse"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
+                  {/* Fake Title */}
+                  <div className="h-8 w-40 bg-gray-200 rounded-xl"></div>
+
+                  {/* Fake Buttons */}
+                  <div className="flex gap-3">
+                    <div className="h-10 w-20 bg-sky-100 rounded-xl"></div>
+
+                    <div className="h-10 w-20 bg-red-100 rounded-xl"></div>
+                  </div>
+                </div>
+
+                {/* Fake Location */}
+                <div className="h-5 w-52 bg-gray-200 rounded-lg mb-4"></div>
+
+                {/* Fake Date */}
+                <div className="h-5 w-36 bg-gray-200 rounded-lg"></div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="bg-red-50 border border-red-200 rounded-3xl p-10 text-center shadow-lg">
+            <h3 className="text-2xl font-bold text-red-500 mb-3">
+              Failed to load trips
+            </h3>
+
+            <p className="text-red-400">
+              Something went wrong while fetching your trips.
+            </p>
+          </div>
+        ) : trips.length === 0 ? (
           <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-10 text-center">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               No trips yet ✈️

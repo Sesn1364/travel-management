@@ -15,6 +15,9 @@ export interface TripType extends CreateTripType {
 
 export interface TripState {
   trips: TripType[];
-  isLoading: boolean;
+  isCreating: boolean;
+  isFetching: boolean;
+  isDeleting: boolean;
+  isUpdating: boolean;
   error: string | null;
 }

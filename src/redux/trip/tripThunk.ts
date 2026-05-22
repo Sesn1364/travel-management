@@ -30,6 +30,7 @@ export const fetchUserTrips = createAsyncThunk(
   "trip/fetchUserTrips",
 
   async (userId: string, { rejectWithValue }) => {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
       const response = await axios.get(
         `http://localhost:3000/api/trips/${userId}`,

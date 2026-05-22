@@ -11,7 +11,10 @@ import type { TripState } from "./tripTypes";
 
 const initialState: TripState = {
   trips: [],
-  isLoading: false,
+  isCreating: false,
+  isFetching: false,
+  isDeleting: false,
+  isUpdating: false,
   error: null,
 };
 
@@ -27,20 +30,30 @@ const tripSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createTrip.pending, (state) => {
-      state.isLoading = true;
+      state.isCreating = true;
     });
 
     builder.addCase(createTrip.fulfilled, (state, action) => {
       state.trips.push(action.payload.data);
-      state.isLoading = false;
+      state.isCreating  = false;
     });
     builder.addCase(createTrip.rejected, (state) => {
-      state.isLoading = false;
+      state.isCreating  = false;
       state.error = "Failed to create trip";
+    });
+
+    builder.addCase(fetchUserTrips.pending, (state) => {
+      state.isFetching = true;
     });
 
     builder.addCase(fetchUserTrips.fulfilled, (state, action) => {
       state.trips = action.payload.data;
+      state.isFetching = false;
+    });
+
+    builder.addCase(fetchUserTrips.rejected, (state) => {
+      state.isFetching = false;
+      state.error = "Failed to fetch trips";
     });
 
     builder.addCase(deleteTrip.fulfilled, (state, action) => {
