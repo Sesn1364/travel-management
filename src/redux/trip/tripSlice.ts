@@ -44,6 +44,7 @@ const tripSlice = createSlice({
 
     builder.addCase(fetchUserTrips.pending, (state) => {
       state.isFetching = true;
+      state.error = null;
     });
 
     builder.addCase(fetchUserTrips.fulfilled, (state, action) => {

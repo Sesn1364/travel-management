@@ -196,6 +196,16 @@ const TripDashboard = () => {
             <p className="text-red-400">
               Something went wrong while fetching your trips.
             </p>
+            <button
+              onClick={() => {
+                if (user?.id) {
+                  dispatch(fetchUserTrips(user.id));
+                }
+              }}
+              className="mt-6 px-6 py-3 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 transition-all duration-300 shadow-lg"
+            >
+              Try Again
+            </button>
           </div>
         ) : trips.length === 0 ? (
           <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-10 text-center">
