@@ -11,16 +11,20 @@ import { useEffect } from "react";
 import { deleteTrip } from "../../../../redux/trip/tripThunk";
 import { Link } from "react-router-dom";
 import TripFormsInput from "../../components/trip-forms-input/TripFormsInput";
-import TripFormsButton from "../../components/trip-forms-button/TripFormsButton";
+import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
+import TripCardButton from "../trip-forms-button/TripCardButton";
+import Modal from "../../../../components/common/modal/Modal";
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const { trips, isCreating, isFetching, error } = useSelector(
+  const { trips, isCreating, isFetching, error, isDeleting } = useSelector(
     (state: RootState) => state.trip,
   );
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
   const handleLogout = () => {
     dispatch(clearUser());
     localStorage.removeItem("user");
@@ -56,9 +60,25 @@ const TripDashboard = () => {
     }
   }, [dispatch, user]);
 
-  const handleDeleteTrip = async (tripId: string) => {
-    await dispatch(deleteTrip(tripId));
+  const openDeleteModal = (tripId: string) => {
+    setSelectedTripId(tripId);
+    setIsModalOpen(true);
   };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTripId(null);
+  };
+  const confirmDeleteTrip = async () => {
+    if (!selectedTripId) return;
+
+    await dispatch(deleteTrip(selectedTripId));
+
+    closeModal();
+  };
+
+  // const handleDeleteTrip = async (tripId: string) => {
+  //   await dispatch(deleteTrip(tripId));
+  // };
 
   return (
     <>
@@ -71,13 +91,13 @@ const TripDashboard = () => {
         />
 
         {/* Logout Button */}
-        <TripFormsButton
+        <Button
           type="button"
           onClick={handleLogout}
           className="px-5 py-2 rounded-xl bg-red-500 font-medium hover:bg-red-600 shadow-md"
         >
           Logout
-        </TripFormsButton>
+        </Button>
       </div>
 
       {/* Create Trip Card */}
@@ -144,14 +164,14 @@ const TripDashboard = () => {
         </div>
 
         {/* Button */}
-        <TripFormsButton
+        <Button
           type="button"
           className="bg-sky-500 hover:bg-sky-600"
           onClick={handleCreateTrip}
           isLoading={isCreating}
         >
           Create Trip
-        </TripFormsButton>
+        </Button>
       </div>
 
       {/* Trips Section */}
@@ -237,12 +257,14 @@ const TripDashboard = () => {
                     </Link>
 
                     {/* Delete Button */}
-                    <button
-                      onClick={() => handleDeleteTrip(trip.id)}
-                      className="px-4 py-2 rounded-xl bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm"
+                    <TripCardButton
+                      type="button"
+                      onClick={() => openDeleteModal(trip.id)}
+                      className="text-red-500 hover:bg-red-500"
+                      isLoading={isDeleting}
                     >
                       Delete
-                    </button>
+                    </TripCardButton>
                   </div>
                 </div>
 
@@ -256,6 +278,15 @@ const TripDashboard = () => {
           </div>
         )}
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        title="Delete Trip"
+        message="Are you sure you want to delete this trip?"
+        confirmText="Yes Delete"
+        cancelText="Cancel"
+        onConfirm={confirmDeleteTrip}
+        onCancel={closeModal}
+      />
     </>
   );
 };

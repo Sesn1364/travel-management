@@ -6,7 +6,7 @@ import type { RootState, AppDispatch } from "../../../../app/store";
 import { useState } from "react";
 import { updateTrip } from "../../../../redux/trip/tripThunk";
 import TripFormsInput from "../../components/trip-forms-input/TripFormsInput";
-import TripFormsButton from "../../components/trip-forms-button/TripFormsButton";
+import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
 
 const EditTripContainer = () => {
@@ -116,13 +116,13 @@ const EditTripContainer = () => {
         </div>
 
         {/* Button */}
-        <TripFormsButton
+        <Button
           type="button"
           className="bg-orange-500 hover:bg-orange-600" // کلاس‌ها را بهتر است بدون حلقه اضافه بنویسید یا مدیریت کنید
           onClick={handleUpdateTrip}
         >
           Save Changes
-        </TripFormsButton>
+        </Button>
       </div>
     </>
   );

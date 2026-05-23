@@ -1,13 +1,13 @@
-import type { TripFormsButtonProps } from "./TripFormsButtonType";
+import type { ButtonProps } from "./ButtonType";
 
-const TripFormsButton = ({
+const Button = ({
   type,
   onClick,
   children,
   className = "",
   isLoading = false,
   disabled = false,
-}: TripFormsButtonProps) => {
+}: ButtonProps) => {
   return (
     <div className="mt-8">
       <button
@@ -25,4 +25,4 @@ const TripFormsButton = ({
   );
 };
 
-export default TripFormsButton;
+export default Button;

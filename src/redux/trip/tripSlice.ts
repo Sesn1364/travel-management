@@ -35,10 +35,10 @@ const tripSlice = createSlice({
 
     builder.addCase(createTrip.fulfilled, (state, action) => {
       state.trips.push(action.payload.data);
-      state.isCreating  = false;
+      state.isCreating = false;
     });
     builder.addCase(createTrip.rejected, (state) => {
-      state.isCreating  = false;
+      state.isCreating = false;
       state.error = "Failed to create trip";
     });
 
@@ -57,10 +57,20 @@ const tripSlice = createSlice({
       state.error = "Failed to fetch trips";
     });
 
+    builder.addCase(deleteTrip.pending, (state) => {
+      state.isDeleting = true;
+    });
+
     builder.addCase(deleteTrip.fulfilled, (state, action) => {
       state.trips = state.trips.filter(
         (trip) => trip.id !== action.payload.data.id,
       );
+      state.isDeleting = false;
+    });
+
+    builder.addCase(deleteTrip.rejected, (state) => {
+      state.isDeleting = false;
+      state.error = "Failed to delete trip";
     });
 
     builder.addCase(updateTrip.fulfilled, (state, action) => {
