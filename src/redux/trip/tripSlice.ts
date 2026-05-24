@@ -75,8 +75,9 @@ const tripSlice = createSlice({
 
     builder.addCase(updateTrip.fulfilled, (state, action) => {
       state.trips = state.trips.map((trip) =>
-        trip.id === action.payload.id ? action.payload : trip,
-      );
+        trip.id === action.payload.data.id ? action.payload.data : trip,
+    );
+    console.log(action.payload.data);      
     });
   },
 });

@@ -1,3 +1,5 @@
+// ModalProps
+
 export interface ModalProps {
   isOpen: boolean;
   title: string;

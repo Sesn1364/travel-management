@@ -93,8 +93,8 @@ export const updateTrip = createAsyncThunk(
         `http://localhost:3000/api/trips/${tripId}`,
         tripData,
       );
-
-      return response.data.data;
+      console.log("FULL RESPONSE:", response);
+      return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         return thunkAPI.rejectWithValue(

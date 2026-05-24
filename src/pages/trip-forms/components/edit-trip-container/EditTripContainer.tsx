@@ -1,6 +1,6 @@
 // Edit Trip Container Component
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../../../app/store";
 import { useState } from "react";
@@ -8,25 +8,27 @@ import { updateTrip } from "../../../../redux/trip/tripThunk";
 import TripFormsInput from "../../components/trip-forms-input/TripFormsInput";
 import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
+import toast from "react-hot-toast";
 
 const EditTripContainer = () => {
   const { tripId } = useParams();
   const trips = useSelector((state: RootState) => state.trip.trips);
   const selectedTrip = trips.find((trip) => trip.id === tripId);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   const handleUpdateTrip = async () => {
     if (!tripId) return;
 
-    await dispatch(
+    const resultAction = await dispatch(
       updateTrip({
         tripId,
         tripData,
       }),
     );
 
-    navigate("/create-trip");
+    if (updateTrip.fulfilled.match(resultAction)) {
+      toast.success(resultAction.payload.message);
+    }
   };
   const [tripData, setTripData] = useState({
     tripName: selectedTrip?.tripName || "",

@@ -1,3 +1,5 @@
+// Modal Component
+
 import type { ModalProps } from "./ModalTypes";
 
 const Modal = ({

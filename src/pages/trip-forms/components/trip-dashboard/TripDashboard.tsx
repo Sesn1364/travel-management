@@ -76,10 +76,6 @@ const TripDashboard = () => {
     closeModal();
   };
 
-  // const handleDeleteTrip = async (tripId: string) => {
-  //   await dispatch(deleteTrip(tripId));
-  // };
-
   return (
     <>
       {/* Header */}
