@@ -15,7 +15,7 @@ import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
 import TripCardButton from "../trip-forms-button/TripCardButton";
 import Modal from "../../../../components/common/modal/Modal";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -38,6 +38,8 @@ const TripDashboard = () => {
     city: "",
     startDate: "",
   });
+  const [searchTripName, setSearchTripName] = useState("");
+  const [searchedTrips, setSearchedTrips] = useState(trips);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripData({
       ...tripData,
@@ -55,7 +57,7 @@ const TripDashboard = () => {
     );
 
     if (createTrip.fulfilled.match(resultAction)) {
-      toast.success(resultAction.payload.message)
+      toast.success(resultAction.payload.message);
     }
   };
 
@@ -80,6 +82,16 @@ const TripDashboard = () => {
 
     closeModal();
   };
+
+  const handleSearchTrips = () => {
+    const filtered = trips.filter((trip) =>
+      trip.tripName.toLowerCase().includes(searchTripName.toLowerCase()),
+    );
+
+    setSearchedTrips(filtered);
+  };
+
+  const displayedTrips = searchedTrips.length > 0 || searchTripName ? searchedTrips : trips;
 
   return (
     <>
@@ -175,6 +187,35 @@ const TripDashboard = () => {
         </Button>
       </div>
 
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <input
+          type="text"
+          placeholder="Search by trip name..."
+          value={searchTripName}
+          onChange={(e) => setSearchTripName(e.target.value)}
+          className="
+      flex-1
+      px-4
+      py-3
+      rounded-2xl
+      border
+      border-gray-200
+      bg-white/80
+      focus:outline-none
+      focus:ring-2
+      focus:ring-sky-400
+    "
+        />
+
+        <Button
+          type="button"
+          onClick={handleSearchTrips}
+          className="bg-sky-500 hover:bg-sky-600"
+        >
+          Search
+        </Button>
+      </div>
+
       {/* Trips Section */}
       <div>
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">My Trips</h2>
@@ -228,7 +269,7 @@ const TripDashboard = () => {
               Try Again
             </button>
           </div>
-        ) : trips.length === 0 ? (
+        ) : displayedTrips.length === 0 ? (
           <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-10 text-center">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               No trips yet ✈️
@@ -238,7 +279,7 @@ const TripDashboard = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {trips.map((trip) => (
+            {displayedTrips.map((trip) => (
               <div
                 key={trip.id}
                 className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-6"
