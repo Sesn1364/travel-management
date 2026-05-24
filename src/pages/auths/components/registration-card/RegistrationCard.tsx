@@ -29,8 +29,8 @@ const RegistrationCard = () => {
     }
   }, [authData.errorMassage]);
 
-  const submitForRegistration = () => {
-    dispatch(
+  const submitForRegistration = async () => {
+    const resultAction = await dispatch(
       sendUserInfoToDb({
         username: authData.username,
         email: authData.email,
@@ -38,6 +38,10 @@ const RegistrationCard = () => {
         confirmPassword: authData.confirmPassword,
       }),
     );
+
+    if (sendUserInfoToDb.fulfilled.match(resultAction)) {
+      toast.success(resultAction.payload.message)
+    }
     dispatch(resetForm());
   };
 

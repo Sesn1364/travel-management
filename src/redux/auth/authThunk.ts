@@ -12,7 +12,7 @@ export const sendUserInfoToDb = createAsyncThunk(
         "http://localhost:3000/api/auth/register",
         userData,
       );
-
+      
       return res.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
