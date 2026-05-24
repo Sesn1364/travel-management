@@ -15,6 +15,7 @@ import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
 import TripCardButton from "../trip-forms-button/TripCardButton";
 import Modal from "../../../../components/common/modal/Modal";
+import toast from "react-hot-toast"
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -46,12 +47,16 @@ const TripDashboard = () => {
   const handleCreateTrip = async () => {
     if (!user) return;
 
-    await dispatch(
+    const resultAction = await dispatch(
       createTrip({
         ...tripData,
         userId: user.id,
       }),
     );
+
+    if (createTrip.fulfilled.match(resultAction)) {
+      toast.success(resultAction.payload.message)
+    }
   };
 
   useEffect(() => {

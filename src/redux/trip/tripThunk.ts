@@ -13,7 +13,6 @@ export const createTrip = createAsyncThunk(
         "http://localhost:3000/api/trips",
         tripData,
       );
-
       return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -30,7 +29,6 @@ export const fetchUserTrips = createAsyncThunk(
   "trip/fetchUserTrips",
 
   async (userId: string, { rejectWithValue }) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
       const response = await axios.get(
         `http://localhost:3000/api/trips/${userId}`,
