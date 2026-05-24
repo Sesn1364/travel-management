@@ -1,11 +1,8 @@
 // Login Card Component
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  sendLoginInfoToDb,
-  userInformation,
-  clearError,
-} from "../../../../redux/auth/authSlice";
+import {userInformation , clearError} from "../../../../redux/auth/authSlice";
+import {sendLoginInfoToDb} from "../../../../redux/auth/authThunk"
 import type { AppDispatch, RootState } from "../../../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

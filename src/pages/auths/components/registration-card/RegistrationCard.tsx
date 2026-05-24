@@ -1,11 +1,8 @@
 // Registration Card Component
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  sendUserInfoToDb,
-  userInformation,
-  resetForm,
-} from "../../../../redux/auth/authSlice";
+import {userInformation , resetForm} from "../../../../redux/auth/authSlice";
+import {sendUserInfoToDb} from "../../../../redux/auth/authThunk"
 import type { AppDispatch, RootState } from "../../../../app/store";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
