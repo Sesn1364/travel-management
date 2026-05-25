@@ -37,8 +37,8 @@ const TripDashboard = () => {
     city: "",
     startDate: "",
   });
-  const [searchTripName, setSearchTripName] = useState("");
-  const [searchedTrips, setSearchedTrips] = useState(trips);
+  const [searchInput, setSearchInput] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripData({
       ...tripData,
@@ -57,6 +57,16 @@ const TripDashboard = () => {
 
     if (createTrip.fulfilled.match(resultAction)) {
       toast.success(resultAction.payload.message);
+
+      dispatch(fetchUserTrips(user.id));
+
+      setTripData({
+        tripName: "",
+        country: "",
+        state: "",
+        city: "",
+        startDate: "",
+      });
     }
   };
 
@@ -83,15 +93,14 @@ const TripDashboard = () => {
   };
 
   const handleSearchTrips = () => {
-    const filtered = trips.filter((trip) =>
-      trip.tripName.toLowerCase().includes(searchTripName.toLowerCase()),
-    );
-
-    setSearchedTrips(filtered);
+    setAppliedSearch(searchInput);
   };
 
-  const displayedTrips =
-    searchedTrips.length > 0 || searchTripName ? searchedTrips : trips;
+  const displayedTrips = appliedSearch
+    ? trips.filter((trip) =>
+        trip.tripName.toLowerCase().includes(appliedSearch.toLowerCase()),
+      )
+    : trips;
 
   return (
     <>
@@ -191,8 +200,8 @@ const TripDashboard = () => {
         <input
           type="text"
           placeholder="Search by trip name..."
-          value={searchTripName}
-          onChange={(e) => setSearchTripName(e.target.value)}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="
       flex-1
       px-4
