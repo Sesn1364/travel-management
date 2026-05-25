@@ -15,6 +15,7 @@ import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader"
 import Modal from "../../../../components/common/modal/Modal";
 import toast from "react-hot-toast";
 import TripCard from "../trip-card/TripCard";
+import TripSearchBox from "../trip-search-box/TripSearchBox";
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -24,6 +25,10 @@ const TripDashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState({
+    name: "",
+    country: "",
+  });
   const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
   const handleLogout = () => {
     dispatch(clearUser());
@@ -37,8 +42,7 @@ const TripDashboard = () => {
     city: "",
     startDate: "",
   });
-  const [searchInput, setSearchInput] = useState("");
-  const [appliedSearch, setAppliedSearch] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripData({
       ...tripData,
@@ -92,15 +96,23 @@ const TripDashboard = () => {
     closeModal();
   };
 
-  const handleSearchTrips = () => {
-    setAppliedSearch(searchInput);
+  const handleSearch = (filters: { name: string; country: string }) => {
+    setAppliedFilters(filters);
   };
 
-  const displayedTrips = appliedSearch
-    ? trips.filter((trip) =>
-        trip.tripName.toLowerCase().includes(appliedSearch.toLowerCase()),
-      )
-    : trips;
+  const displayedTrips = trips.filter((trip) => {
+    const matchName = appliedFilters.name
+      ? trip.tripName.toLowerCase().includes(appliedFilters.name.toLowerCase())
+      : true;
+
+    const matchCountry = appliedFilters.country
+      ? trip.country
+          .toLowerCase()
+          .includes(appliedFilters.country.toLowerCase())
+      : true;
+
+    return matchName && matchCountry;
+  });
 
   return (
     <>
@@ -196,34 +208,7 @@ const TripDashboard = () => {
         </Button>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <input
-          type="text"
-          placeholder="Search by trip name..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="
-      flex-1
-      px-4
-      py-3
-      rounded-2xl
-      border
-      border-gray-200
-      bg-white/80
-      focus:outline-none
-      focus:ring-2
-      focus:ring-sky-400
-    "
-        />
-
-        <Button
-          type="button"
-          onClick={handleSearchTrips}
-          className="bg-sky-500 hover:bg-sky-600"
-        >
-          Search
-        </Button>
-      </div>
+      <TripSearchBox onSearch={handleSearch} />
 
       {/* Trips Section */}
       <div>
