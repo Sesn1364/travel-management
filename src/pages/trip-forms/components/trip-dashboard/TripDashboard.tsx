@@ -9,13 +9,12 @@ import { createTrip } from "../../../../redux/trip/tripThunk";
 import { fetchUserTrips } from "../../../../redux/trip/tripThunk";
 import { useEffect } from "react";
 import { deleteTrip } from "../../../../redux/trip/tripThunk";
-import { Link } from "react-router-dom";
 import TripFormsInput from "../../components/trip-forms-input/TripFormsInput";
 import Button from "../../../../components/common/button/Button";
 import TripFormsHeader from "../../components/trip-forms-header/TripFormsHeader";
-import TripCardButton from "../trip-forms-button/TripCardButton";
 import Modal from "../../../../components/common/modal/Modal";
 import toast from "react-hot-toast";
+import TripCard from "../trip-card/TripCard";
 
 const TripDashboard = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -91,7 +90,8 @@ const TripDashboard = () => {
     setSearchedTrips(filtered);
   };
 
-  const displayedTrips = searchedTrips.length > 0 || searchTripName ? searchedTrips : trips;
+  const displayedTrips =
+    searchedTrips.length > 0 || searchTripName ? searchedTrips : trips;
 
   return (
     <>
@@ -280,42 +280,12 @@ const TripDashboard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {displayedTrips.map((trip) => (
-              <div
+              <TripCard
                 key={trip.id}
-                className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-6"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-gray-800">
-                    {trip.tripName}
-                  </h3>
-
-                  <div className="flex items-center gap-3">
-                    {/* Edit Button */}
-                    <Link
-                      to={`/edit-trip/${trip.id}`}
-                      className="px-4 py-2 rounded-xl bg-sky-100 text-sky-600 hover:bg-sky-500 hover:text-white transition-all duration-300 shadow-sm"
-                    >
-                      Edit
-                    </Link>
-
-                    {/* Delete Button */}
-                    <TripCardButton
-                      type="button"
-                      onClick={() => openDeleteModal(trip.id)}
-                      className="text-red-500 hover:bg-red-500"
-                      isLoading={isDeleting}
-                    >
-                      Delete
-                    </TripCardButton>
-                  </div>
-                </div>
-
-                <p className="text-gray-600">
-                  📍 {trip.city}, {trip.state}, {trip.country}
-                </p>
-
-                <p className="text-gray-500 mt-2">📅 {trip.startDate}</p>
-              </div>
+                trip={trip}
+                onDelete={openDeleteModal}
+                isDeleting={isDeleting}
+              />
             ))}
           </div>
         )}

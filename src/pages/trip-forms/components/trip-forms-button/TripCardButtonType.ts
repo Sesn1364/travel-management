@@ -1,3 +1,5 @@
+// Trip Card Button Type
+
 export type TripCardButtonProps = {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
