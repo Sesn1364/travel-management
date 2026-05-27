@@ -1,4 +1,4 @@
-//َ App
+// // //َ App
 
 import { useRoutes } from "react-router-dom";
 import "./App.css";
@@ -6,33 +6,50 @@ import RoutesManagement from "./pages/routes-management/RoutesManagement";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./redux/user/userSlice";
+import { jwtDecode } from "jwt-decode";
+
+interface JwtPayload {
+  id: number;
+  username: string;
+  email: string;
+  exp: number;
+}
 
 function App() {
-  const SESSION_DURATION = 6 * 60 * 60 * 1000;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
+    if (token) {
+      try {
+        const decoded = jwtDecode<JwtPayload>(token);
 
-      const currentTime = Date.now();
+        const currentTime = Date.now() / 1000;
 
-      const isSessionExpired =
-        currentTime - parsedUser.loginTime > SESSION_DURATION;
+        // check expiration
+        if (decoded.exp < currentTime) {
+          localStorage.removeItem("token");
+          return;
+        }
 
-      if (isSessionExpired) {
-        localStorage.removeItem("user");
-      } else {
-        dispatch(setCurrentUser(parsedUser.user));
+        const user = {
+          id: decoded.id,
+          username: decoded.username,
+          email: decoded.email,
+        };
+
+        dispatch(setCurrentUser(user));
+      } catch {
+        console.log("Invalid token");
+        localStorage.removeItem("token");
       }
     }
-  }, []);
+  }, [dispatch]);
 
-  const routs = useRoutes(RoutesManagement);
+  const routes = useRoutes(RoutesManagement);
 
-  return routs;
+  return routes;
 }
 
 export default App;

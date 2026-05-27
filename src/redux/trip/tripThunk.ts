@@ -9,9 +9,16 @@ export const createTrip = createAsyncThunk(
 
   async (tripData: CreateTripType, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token");
+
       const response = await axios.post(
         "http://localhost:3000/api/trips",
         tripData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       return response.data;
     } catch (error: unknown) {
@@ -28,11 +35,15 @@ export const createTrip = createAsyncThunk(
 export const fetchUserTrips = createAsyncThunk(
   "trip/fetchUserTrips",
 
-  async (userId: string, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/trips/${userId}`,
-      );
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get("http://localhost:3000/api/trips", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return response.data;
     } catch (error: unknown) {
@@ -41,6 +52,7 @@ export const fetchUserTrips = createAsyncThunk(
           error.response?.data?.message || "Fetch trips failed",
         );
       }
+
       return rejectWithValue("Something went wrong");
     }
   },
@@ -51,8 +63,14 @@ export const deleteTrip = createAsyncThunk(
 
   async (tripId: string, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.delete(
         `http://localhost:3000/api/trips/${tripId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       return response.data;
@@ -87,9 +105,15 @@ export const updateTrip = createAsyncThunk(
     thunkAPI,
   ) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.put(
         `http://localhost:3000/api/trips/${tripId}`,
         tripData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       console.log("FULL RESPONSE:", response);
       return response.data;

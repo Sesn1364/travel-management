@@ -33,6 +33,7 @@ const TripDashboard = () => {
   const handleLogout = () => {
     dispatch(clearUser());
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/");
   };
   const [tripData, setTripData] = useState({
@@ -62,7 +63,7 @@ const TripDashboard = () => {
     if (createTrip.fulfilled.match(resultAction)) {
       toast.success(resultAction.payload.message);
 
-      dispatch(fetchUserTrips(user.id));
+      dispatch(fetchUserTrips());
 
       setTripData({
         tripName: "",
@@ -76,7 +77,7 @@ const TripDashboard = () => {
 
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchUserTrips(user.id));
+      dispatch(fetchUserTrips());
     }
   }, [dispatch, user]);
 
@@ -255,7 +256,7 @@ const TripDashboard = () => {
             <button
               onClick={() => {
                 if (user?.id) {
-                  dispatch(fetchUserTrips(user.id));
+                  dispatch(fetchUserTrips());
                 }
               }}
               className="mt-6 px-6 py-3 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 transition-all duration-300 shadow-lg"

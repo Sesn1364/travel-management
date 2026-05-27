@@ -1,8 +1,8 @@
 // Login Card Component
 
 import { useDispatch, useSelector } from "react-redux";
-import {userInformation , clearError} from "../../../../redux/auth/authSlice";
-import {sendLoginInfoToDb} from "../../../../redux/auth/authThunk"
+import { userInformation, clearError } from "../../../../redux/auth/authSlice";
+import { sendLoginInfoToDb } from "../../../../redux/auth/authThunk";
 import type { AppDispatch, RootState } from "../../../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -35,9 +35,11 @@ const LoginCard = () => {
 
     if (sendLoginInfoToDb.fulfilled.match(resultAction)) {
       const user = resultAction.payload.data;
+      const token = resultAction.payload.token; // 🔥 اضافه شد
 
       dispatch(setCurrentUser(user));
 
+      // 🟡 قبلی (بدون تغییر)
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -45,6 +47,9 @@ const LoginCard = () => {
           loginTime: Date.now(),
         }),
       );
+
+      // 🔐 جدید (JWT)
+      localStorage.setItem("token", token);
 
       navigate("/create-trip");
     }
