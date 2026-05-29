@@ -6,6 +6,7 @@ import Registration from "../auths/registration/Registration";
 import ProtectedRoute from "../../routes/ProtectedRoute";
 import GuestRoute from "../../routes/GuestRoute";
 import EditTrip from "../trip-forms/edit-trip/EditTrip";
+import Expenses from "../expenses/Expenses";
 
 const RoutesManagement = [
   {
@@ -38,6 +39,14 @@ const RoutesManagement = [
     element: (
       <ProtectedRoute>
         <EditTrip />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/expenses/:tripId",
+    element: (
+      <ProtectedRoute>
+        <Expenses />
       </ProtectedRoute>
     ),
   },

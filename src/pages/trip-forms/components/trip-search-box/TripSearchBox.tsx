@@ -25,7 +25,7 @@ const TripSearchBox = ({ onSearch }: Props) => {
     <div className="flex flex-col md:flex-row gap-4 mb-8">
       <input
         type="text"
-        placeholder="Search by trip name..."
+        placeholder="جستجو بر اساس نام سفر ..."
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="flex-1 px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-sky-400"
@@ -33,7 +33,7 @@ const TripSearchBox = ({ onSearch }: Props) => {
 
       <input
         type="text"
-        placeholder="Search by country..."
+        placeholder="جستجو بر اساس کشور ..."
         value={country}
         onChange={(e) => setCountry(e.target.value)}
         className="flex-1 px-4 py-3 rounded-2xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-sky-400"
@@ -44,7 +44,7 @@ const TripSearchBox = ({ onSearch }: Props) => {
         onClick={handleSearch}
         className="bg-sky-500 hover:bg-sky-600"
       >
-        Search
+        جستجو
       </Button>
     </div>
   );

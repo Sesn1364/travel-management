@@ -17,7 +17,7 @@ const TripCardButton = ({
         ${className}
       `}
       >
-        {isLoading ? "Loading..." : children}
+        {isLoading ? "بارگیری..." : children}
       </button>
   );
 };

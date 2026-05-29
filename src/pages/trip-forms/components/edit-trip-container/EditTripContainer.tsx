@@ -55,20 +55,20 @@ const EditTripContainer = () => {
     <>
       {/* Header */}
       <TripFormsHeader
-        title="Edit Trip ✈️"
-        subtitle="Update your travel information."
+        title="ویرایش سفر ✈️"
+        subtitle="اطلاعات سفر خود را به‌روز کنید."
       />
 
       {/* Card */}
       <div className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-xl p-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Trip Information
+          اطلاعات سفر
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Trip Name */}
           <TripFormsInput
-            lableText="Trip Name"
+            lableText="نام سفر"
             type="text"
             name="tripName"
             value={tripData.tripName}
@@ -78,7 +78,7 @@ const EditTripContainer = () => {
 
           {/* Country */}
           <TripFormsInput
-            lableText="Country"
+            lableText="کشور"
             type="text"
             name="country"
             value={tripData.country}
@@ -88,7 +88,7 @@ const EditTripContainer = () => {
 
           {/* State */}
           <TripFormsInput
-            lableText="State"
+            lableText="استان"
             type="text"
             name="state"
             value={tripData.state}
@@ -98,7 +98,7 @@ const EditTripContainer = () => {
 
           {/* City */}
           <TripFormsInput
-            lableText="City"
+            lableText="شهر"
             type="text"
             name="city"
             value={tripData.city}
@@ -108,7 +108,7 @@ const EditTripContainer = () => {
 
           {/* Start Date */}
           <TripFormsInput
-            lableText="Start Date"
+            lableText="تاریخ شروع"
             type="date"
             name="startDate"
             value={tripData.startDate}
@@ -123,7 +123,7 @@ const EditTripContainer = () => {
           className="bg-orange-500 hover:bg-orange-600" // کلاس‌ها را بهتر است بدون حلقه اضافه بنویسید یا مدیریت کنید
           onClick={handleUpdateTrip}
         >
-          Save Changes
+          ذخیره تغییرات
         </Button>
       </div>
     </>

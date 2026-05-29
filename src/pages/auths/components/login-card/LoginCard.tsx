@@ -68,8 +68,8 @@ const LoginCard = () => {
       <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
         {/* Header */}
         <AuthHeader
-          title="Welcome Back"
-          description="Login to continue your journey"
+          title="خوش آمدید"
+          description="برای ادامه سفر خود وارد شوید"
           containerClassName={`text-center mb-8`}
           titleClassName={`text-4xl font-bold text-white mb-2`}
           descriptionClassName={`text-gray-300 text-sm`}
@@ -79,12 +79,12 @@ const LoginCard = () => {
         <form className="space-y-5">
           {/* Username */}
           <div>
-            <label className="block text-sm text-gray-200 mb-2">Username</label>
+            <label className="block text-sm text-gray-200 mb-2">نام کاربری</label>
 
             <Input
               type="text"
               name="username"
-              placeholder="Enter your username"
+              placeholder="نام کاربری خود را وارد کنید"
               onChange={inputHandler}
               className={` focus:ring-cyan-400`}
             />
@@ -92,12 +92,12 @@ const LoginCard = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm text-gray-200 mb-2">Password</label>
+            <label className="block text-sm text-gray-200 mb-2">رمز عبور</label>
 
             <Input
               type="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder="رمز عبور خود را وارد کنید"
               onChange={inputHandler}
               className={` focus:ring-purple-400`}
             />
@@ -105,14 +105,14 @@ const LoginCard = () => {
 
           {/* Button */}
           <Button type="button" onClick={submitForLogin}>
-            Login
+            ورود
           </Button>
         </form>
 
         {/* Footer */}
         <AuthFooter
-          text="Don’t have an account?"
-          linkText="Register"
+          text="حساب کاربری ندارید؟"
+          linkText="ثبت نام"
           to="/registration"
         />
       </div>

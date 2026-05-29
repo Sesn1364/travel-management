@@ -50,8 +50,8 @@ const RegistrationCard = () => {
       <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8">
         {/* Header */}
         <AuthHeader
-          title="Create Account"
-          description="Join us and start your journey"
+          title="ایجاد حساب کاربری"
+          description="به ما بپیوندید و سفر خود را آغاز کنید"
           containerClassName={`text-center mb-8`}
           titleClassName={`text-4xl font-bold text-white mb-2`}
           descriptionClassName={`text-gray-300 text-sm`}
@@ -61,42 +61,42 @@ const RegistrationCard = () => {
         <form className="space-y-5" autoComplete="off">
           {/* Username */}
           <div>
-            <label className="block text-sm text-gray-200 mb-2">Username</label>
+            <label className="block text-sm text-gray-200 mb-2">نام کاربری</label>
 
             <Input
               type="text"
               name="username"
               value={authData.username}
               onChange={inputHandler}
-              placeholder="Choose a username"
+              placeholder="انتخاب نام کاربری"
               className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm text-gray-200 mb-2">Email</label>
+            <label className="block text-sm text-gray-200 mb-2">ایمیل</label>
 
             <Input
               type="email"
               name="email"
               value={authData.email}
               onChange={inputHandler}
-              placeholder="Enter your email"
+              placeholder="ایمیل خود راوارد کنید"
               className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-cyan-400`}
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-sm text-gray-200 mb-2">Password</label>
+            <label className="block text-sm text-gray-200 mb-2">رمز عبور</label>
 
             <Input
               type="password"
               name="password"
               value={authData.password}
               onChange={inputHandler}
-              placeholder="Create a password"
+              placeholder="ایجاد رمز عبور"
               className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
             />
           </div>
@@ -104,7 +104,7 @@ const RegistrationCard = () => {
           {/* Confirm Password */}
           <div>
             <label className="block text-sm text-gray-200 mb-2">
-              Confirm Password
+              تأیید رمز عبور
             </label>
 
             <Input
@@ -112,19 +112,19 @@ const RegistrationCard = () => {
               name="confirmPassword"
               value={authData.confirmPassword}
               onChange={inputHandler}
-              placeholder="Repeat your password"
+              placeholder="رمز عبور خود را تکرار کنید"
               className={`w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 transition-all focus:ring-purple-400`}
             />
           </div>
 
           {/* Button */}
           <Button type="button" onClick={submitForRegistration}>
-            Create Account
+            ایجاد حساب
           </Button>
         </form>
 
         {/* Footer */}
-        <AuthFooter text="Already have an account?" linkText="Login" to="/" />
+        <AuthFooter text="قبلاً حساب کاربری دارید?" linkText="ورود" to="/" />
       </div>
     </>
   );

@@ -120,8 +120,8 @@ const TripDashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-10">
         <TripFormsHeader
-          title="Welcome back"
-          subtitle="Plan your next adventure with ease."
+          title="خوش آمدی 👋"
+          subtitle="ماجراجویی بعدی خود را با سهولت برنامه ریزی کنید."
           username={user?.username}
         />
 
@@ -131,65 +131,65 @@ const TripDashboard = () => {
           onClick={handleLogout}
           className="px-5 py-2 rounded-xl bg-red-500 font-medium hover:bg-red-600 shadow-md"
         >
-          Logout
+          خروج
         </Button>
       </div>
 
       {/* Create Trip Card */}
       <div className="bg-white/70 backdrop-blur-xl border border-white/50 rounded-3xl shadow-xl p-8 mb-10">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Create New Trip
+          ایجاد سفر جدید
         </h2>
 
         {/* Form Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Trip Name */}
           <TripFormsInput
-            lableText="Trip Name"
+            lableText="نام سفر"
             type="text"
             name="tripName"
             value={tripData.tripName}
             onChange={handleChange}
-            placeholder="Summer Vacation"
+            placeholder="تعطیلات تابستانی"
             className={` focus:ring-sky-400`}
           />
 
           {/* Country */}
           <TripFormsInput
-            lableText="Country"
+            lableText="کشور"
             type="text"
             name="country"
             value={tripData.country}
             onChange={handleChange}
-            placeholder="Italy"
+            placeholder="ایتالیا"
             className={` focus:ring-sky-400`}
           />
 
           {/* State */}
           <TripFormsInput
-            lableText="State"
+            lableText="استان"
             type="text"
             name="state"
             value={tripData.state}
             onChange={handleChange}
-            placeholder="Tuscany"
+            placeholder="توسکانی"
             className={` focus:ring-sky-400`}
           />
 
           {/* City */}
           <TripFormsInput
-            lableText="City"
+            lableText="شهر"
             type="text"
             name="city"
             value={tripData.city}
             onChange={handleChange}
-            placeholder="Florence"
+            placeholder="فلورانس"
             className={` focus:ring-sky-400`}
           />
 
           {/* Start Date */}
           <TripFormsInput
-            lableText="Start Date"
+            lableText="تاریخ شروع"
             type="date"
             name="startDate"
             value={tripData.startDate}
@@ -205,7 +205,7 @@ const TripDashboard = () => {
           onClick={handleCreateTrip}
           isLoading={isCreating}
         >
-          Create Trip
+          ایجاد سفر
         </Button>
       </div>
 
@@ -213,7 +213,7 @@ const TripDashboard = () => {
 
       {/* Trips Section */}
       <div>
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">My Trips</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6">سفرهای من</h2>
 
         {/* Empty State */}
         {isFetching ? (
@@ -247,11 +247,11 @@ const TripDashboard = () => {
         ) : error ? (
           <div className="bg-red-50 border border-red-200 rounded-3xl p-10 text-center shadow-lg">
             <h3 className="text-2xl font-bold text-red-500 mb-3">
-              Failed to load trips
+              بارگیری سفرها ناموفق بود
             </h3>
 
             <p className="text-red-400">
-              Something went wrong while fetching your trips.
+              موقع آوردن وسایل سفرت یه مشکلی پیش اومد.
             </p>
             <button
               onClick={() => {
@@ -261,16 +261,16 @@ const TripDashboard = () => {
               }}
               className="mt-6 px-6 py-3 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 transition-all duration-300 shadow-lg"
             >
-              Try Again
+              دوباره امتحان کنید
             </button>
           </div>
         ) : displayedTrips.length === 0 ? (
           <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl shadow-lg p-10 text-center">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              No trips yet ✈️
+              هنوز سفری انجام نشده ✈️
             </h3>
 
-            <p className="text-gray-500">Start by creating your first trip.</p>
+            <p className="text-gray-500">با خلق اولین سفر خود شروع کنید.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -287,10 +287,10 @@ const TripDashboard = () => {
       </div>
       <Modal
         isOpen={isModalOpen}
-        title="Delete Trip"
-        message="Are you sure you want to delete this trip?"
-        confirmText="Yes Delete"
-        cancelText="Cancel"
+        title="حذف سفر"
+        message="آیا از حذف این سفر مطمئن هستید؟"
+        confirmText="بله حذف"
+        cancelText="لغو"
         onConfirm={confirmDeleteTrip}
         onCancel={closeModal}
       />

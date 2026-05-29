@@ -19,10 +19,16 @@ const TripCard = ({
         <div className="flex items-center gap-3">
           {/* Edit Button */}
           <Link
+            to={`/expenses/${trip.id}`}
+            className="px-4 py-2 rounded-xl bg-sky-100 text-green-600 hover:bg-green-500 hover:text-white transition-all duration-300 shadow-sm"
+          >
+            مخارج
+          </Link>
+          <Link
             to={`/edit-trip/${trip.id}`}
             className="px-4 py-2 rounded-xl bg-sky-100 text-sky-600 hover:bg-sky-500 hover:text-white transition-all duration-300 shadow-sm"
           >
-            Edit
+            وبرایش
           </Link>
 
           {/* Delete Button */}
@@ -32,7 +38,7 @@ const TripCard = ({
             className="text-red-500 hover:bg-red-500"
             isLoading={isDeleting}
           >
-            Delete
+            حذف
           </TripCardButton>
         </div>
       </div>
