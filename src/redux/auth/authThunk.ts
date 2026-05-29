@@ -1,27 +1,19 @@
 // authThunk
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import type { RegisterUserType , LoginUserType } from "./authTypes";
+import { handleApiError } from "../../services/api/handleApiError";
+import type { RegisterUserType, LoginUserType } from "./authTypes";
+import { registerUserApi, loginUserApi } from "../../services/api/authApi";
 
 export const sendUserInfoToDb = createAsyncThunk(
   "auth/sendUserInfoToDbStatus",
   async (userData: RegisterUserType, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        userData,
-      );
-      
-      return res.data;
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(
-          error.response?.data?.message || "خطای ناشناخته رخ داد",
-        );
-      }
+      const res = await registerUserApi(userData);
 
-      return rejectWithValue("خطای ناشناخته رخ داد");
+      return res;
+    } catch (error: unknown) {
+      return rejectWithValue(handleApiError(error));
     }
   },
 );
@@ -30,18 +22,11 @@ export const sendLoginInfoToDb = createAsyncThunk(
   "auth/sendLoginInfoToDbStatus",
   async (userData: LoginUserType, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        userData,
-      );
+      const res = await loginUserApi(userData);
 
-      return res.data;
+      return res;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data?.message || "Login failed");
-      }
-
-      return rejectWithValue("خطای ناشناخته رخ داد");
+      return rejectWithValue(handleApiError(error));
     }
   },
 );

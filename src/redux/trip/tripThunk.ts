@@ -1,33 +1,25 @@
 // tripThunk
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import type { CreateTripType } from "./tripTypes";
+import {
+  createTripApi,
+  fetchUserTripsApi,
+  deleteTripApi,
+  updateTripApi,
+} from "../../services/api/tripApi";
+import { handleApiError } from "../../services/api/handleApiError";
 
 export const createTrip = createAsyncThunk(
   "trip/createTrip",
 
   async (tripData: CreateTripType, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
+      const response = await createTripApi(tripData);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/trips",
-        tripData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      return response.data;
+      return response;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(
-          error.response?.data?.message || "Create trip failed",
-        );
-      }
-      return rejectWithValue("Something went wrong");
+      return rejectWithValue(handleApiError(error));
     }
   },
 );
@@ -37,23 +29,11 @@ export const fetchUserTrips = createAsyncThunk(
 
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
+      const response = await fetchUserTripsApi();
 
-      const response = await axios.get("http://localhost:3000/api/trips", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      return response.data;
+      return response;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(
-          error.response?.data?.message || "Fetch trips failed",
-        );
-      }
-
-      return rejectWithValue("Something went wrong");
+      return rejectWithValue(handleApiError(error));
     }
   },
 );
@@ -63,24 +43,11 @@ export const deleteTrip = createAsyncThunk(
 
   async (tripId: string, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `http://localhost:3000/api/trips/${tripId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const response = await deleteTripApi(tripId);
 
-      return response.data;
+      return response;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(
-          error.response?.data?.message || "Delete trip failed",
-        );
-      }
-      return rejectWithValue("Something went wrong");
+      return rejectWithValue(handleApiError(error));
     }
   },
 );
@@ -102,29 +69,14 @@ export const updateTrip = createAsyncThunk(
         startDate: string;
       };
     },
-    thunkAPI,
+    { rejectWithValue },
   ) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.put(
-        `http://localhost:3000/api/trips/${tripId}`,
-        tripData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      console.log("FULL RESPONSE:", response);
-      return response.data;
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        return thunkAPI.rejectWithValue(
-          error.response?.data?.message || "Update trip failed",
-        );
-      }
+      const response = await updateTripApi(tripId, tripData);
 
-      return thunkAPI.rejectWithValue("Something went wrong");
+      return response;
+    } catch (error: unknown) {
+      return rejectWithValue(handleApiError(error));
     }
   },
 );
